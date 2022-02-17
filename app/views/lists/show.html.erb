@@ -1,0 +1,44 @@
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= @list.image_url %>);">
+  <div class="container">
+    <h1><strong><%= @list.name %></strong></h1>
+    <h1><strong><%= @list.movies.count %> movies</strong></h1>
+    <p>Your movie organizer</p>
+  </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+    <% @list.bookmarks.each do |bookmark| %>
+      <div class="col-lg-6">
+        <div class="card" style="width: 24rem;">
+          <img class="card-img-top" src="<%= bookmark.movie.poster_url %>" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title"><%= bookmark.movie.title %></h5>
+            <h5 class="card-title"><%= bookmark.movie.rating %></h5>
+            <p class="card-text"><%= bookmark.movie.overview %></p>
+            <div class="d-flex">
+              <i class="fa-solid fa-comment"></i>
+              <p class="card-text"><%= bookmark.comment %></p>
+              <%= link_to "delete", bookmark_path(bookmark),
+                                    class: "flex-grow-1",
+                                    method: :delete,
+                                    data: { confirm: "Are you sure?" }
+              %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+<div class="container">
+  <h1>add a new bookmark</h1>
+
+  <%= simple_form_for [ @list, @bookmark ] do |f| %>
+    <%= f.input :comment %>
+    <%= f.association :movie %>
+    <%= f.submit class: "btn btn-primary" %>
+  <% end %>
+</div>

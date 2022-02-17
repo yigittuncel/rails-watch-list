@@ -1,2 +1,26 @@
-<h1>List your all movies</h1>
-<p>Your movie organizer</p>
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3125&q=80);">
+  <div class="container">
+    <h1>List your<strong>all movies</strong> with <strong>MyMovies</strong>!</h1>
+    <p>Your movie organizer</p>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <h4>My Lists</h4>
+
+    <div class="row">
+    <% @lists.each do |list| %>
+      <div class="col-lg-4">
+        <%= link_to list_path(list) do %>
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src= "<%= list.image_url %>" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title"><%= list.name %></h5>
+              <h5 class="card-title"><%= list.id %></h5>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

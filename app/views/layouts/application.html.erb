@@ -11,6 +11,12 @@
   </head>
 
   <body>
+    <div class="navbar bg-light">
+      <div class="container">
+      <%= link_to "my lists", lists_path, class: "text-decoration-none" %>
+      <%= link_to "new list", new_list_path, class: "text-decoration-none" %>
+      </div>
+    </div>
     <%= yield %>
   </body>
 </html>
