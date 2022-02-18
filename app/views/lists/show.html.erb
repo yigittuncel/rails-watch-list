@@ -1,4 +1,9 @@
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= cl_image_path @list.photo.key %>);">
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),
+  url(
+    <% if @list.photo.attached? %>
+      <%= cl_image_path @list.photo.key %>
+    <% end %>
+  );">
   <div class="container">
     <h1><strong><%= @list.name %></strong></h1>
     <h1><strong><%= @list.movies.count %> movies</strong></h1>

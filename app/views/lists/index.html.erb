@@ -14,7 +14,10 @@
           <%= link_to list_path(list) do %>
             <div class="card-category"
                  style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
-                 url(<%= cl_image_path list.photo.key %>)">
+                 url( <% if @list.photo.attached? %>
+                        <%= cl_image_path list.photo.key %>
+                      <% end %>
+                   )">
               <%= list.name %>
             </div>
           <% end %>
