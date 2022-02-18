@@ -5,22 +5,27 @@
   </div>
 </div>
 
-<div class="container mt-5">
-  <h4>My Lists</h4>
-
-    <div class="row">
+<div class="container my-5">
+  <div class="d-flex justify-content-between align-item-center my-5">
+    <h2>My lists</h2>
+  </div>
+  <div class="cards">
     <% @lists.each do |list| %>
-      <div class="col-lg-4">
-        <%= link_to list_path(list) do %>
-          <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src= "<%= list.image_url %>" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title"><%= list.name %></h5>
-              <h5 class="card-title"><%= list.id %></h5>
+          <%= link_to list_path(list) do %>
+            <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= list.image_url %>)">
+              <%= list.name %>
             </div>
-          </div>
-        <% end %>
-      </div>
+          <% end %>
+    <% end %>
+  </div>
+
+  <div>
+    <h1>add a new list</h1>
+
+    <%= simple_form_for(@list) do |f| %>
+      <%= f.input :name %>
+      <%= f.input :image_url %>
+      <%= f.submit class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>
