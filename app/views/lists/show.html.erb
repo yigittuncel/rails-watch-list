@@ -1,11 +1,9 @@
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= @list.image_url %>);">
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= cl_image_path @list.photo.key %>);">
   <div class="container">
     <h1><strong><%= @list.name %></strong></h1>
     <h1><strong><%= @list.movies.count %> movies</strong></h1>
   </div>
 </div>
-
-
 
 <div class="container my-5">
   <h3>add a new bookmark</h3>
