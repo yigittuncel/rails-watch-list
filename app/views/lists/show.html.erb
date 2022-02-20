@@ -21,32 +21,42 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-8">
-      <div class="row">
-        <% @list.bookmarks.each do |bookmark| %>
-          <div class="col-lg-6">
-            <div class="card">
-              <img class="card-img-top" src="<%= bookmark.movie.poster_url %>" style="height: 200px; object-fit: cover;" alt="Card image cap">
-              <div class="card-body">
-                <div class="d-flex align-items-center">
-                  <h5 class="card-title me-3"><%= bookmark.movie.title %></h5>
-                  <h4 class="card-title me-1 text-secondary"><%= bookmark.movie.rating %></h4>
-                  <i class="fa-regular fa-star mb-2 text-warning"></i>
+
+      <% if @list.bookmarks.empty? %>
+
+        <p>Do you want to add some movies bookmark?</p>
+
+      <% else %>
+
+            <div class="row">
+              <% @list.bookmarks.each do |bookmark| %>
+                <div class="col-lg-6">
+                  <div class="card">
+                    <img class="card-img-top" src="<%= bookmark.movie.poster_url %>" style="height: 200px; object-fit: cover;" alt="Card image cap">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center">
+                        <h5 class="card-title me-3"><%= bookmark.movie.title %></h5>
+                        <h4 class="card-title me-1 text-secondary"><%= bookmark.movie.rating %></h4>
+                        <i class="fa-regular fa-star mb-2 text-warning"></i>
+                      </div>
+                      <p class="card-text text-secondary my-2"><%= bookmark.movie.overview %></p>
+                      <div class="d-flex">
+                      <i class="fa-solid fa-quote-left me-3 mt-1"></i>
+                        <p class="card-text flex-grow-1"><%= bookmark.comment %></p>
+                        <%= link_to "delete", bookmark_path(@list),
+                                              class: "text-danger",
+                                              method: :delete,
+                                              data: { confirm: "Are you sure?" }
+                        %>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <p class="card-text text-secondary my-2"><%= bookmark.movie.overview %></p>
-                <div class="d-flex">
-                <i class="fa-solid fa-quote-left me-3 mt-1"></i>
-                  <p class="card-text flex-grow-1"><%= bookmark.comment %></p>
-                  <%= link_to "delete", bookmark_path(bookmark),
-                                        class: "text-danger",
-                                        method: :delete,
-                                        data: { confirm: "Are you sure?" }
-                  %>
-                </div>
-              </div>
+              <% end %>
             </div>
-          </div>
-        <% end %>
-      </div>
+
+      <% end %>
+
     </div>
 
     <div class="col-md-4">
@@ -54,12 +64,7 @@
         <p class="text-center form-title">Add New Bookmark</p>
 
 
-        <%= simple_form_for [ @list, @bookmark ] do |f| %>
-          <%= f.input :comment %>
-          <%= f.association :movie,
-                            input_html: { data: { controller: 'select2', class: "form-select" } } %>
-          <%= f.submit class: "btn btn-primary" %>
-        <% end %>
+        <%= render "form_bookmark", list: @list, bookmark: @bookmark %>
        </div>
     </div>
   </div>
@@ -70,30 +75,38 @@
 
 <div class="container mt-5">
   <p class="form-title">Reviews</p>
+
+
+
   <div class="row">
     <div class="col-md-8">
-      <ul class="list-group">
-      <% @list.reviews.each do |review| %>
-        <li class="list-group-item">
-          <div class="d-flex">
-            <%= review.rating %>
-            <p>stars</p>
-          </div>
-          <%= review.comment %>
-        </li>
+
+      <% if @list.reviews.empty? %>
+        <p>Do you want to add some movies review?</p>
+
+      <% else %>
+
+        <ul class="list-group">
+          <% @list.reviews.each do |review| %>
+            <li class="list-group-item">
+              <div class="d-flex">
+                <%= review.rating %>
+                <p>stars</p>
+              </div>
+              <%= review.comment %>
+            </li>
+          <% end %>
+        </ul>
+
       <% end %>
-      </ul>
+
     </div>
 
     <div class="col-md-4">
       <div class="bg-white border p-3 mb-3">
         <p class="text-center form-title">Add New Review</p>
 
-        <%= simple_form_for [ @list, @review ] do |f| %>
-          <%= f.input :comment %>
-          <%= f.input :rating %>
-          <%= f.submit class: "btn btn-primary" %>
-        <% end %>
+          <%= render "form_review", list: @list, review: @review %>
 
        </div>
     </div>
