@@ -6,33 +6,39 @@
 </div>
 
 <div class="container my-5">
-  <div class="d-flex justify-content-between align-item-center my-5">
-    <h2>My lists</h2>
+  <div class="my-5">
+    <h3>My lists</h3>
   </div>
-  <div class="cards">
-    <% @lists.each do |list| %>
-          <%= link_to list_path(list) do %>
-            <div class="card-category"
-                 style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
-                 url(
-                  <% if list.photo.attached? %>
-                    <%= cl_image_path list.photo.key %>
-                  <% end %>
-                   )">
-              <%= list.name %>
-            </div>
-          <% end %>
-    <% end %>
-  </div>
+  <div class="row">
+    <div class="col-md-8">
 
+      <div class="cards">
+        <% @lists.each do |list| %>
+              <%= link_to list_path(list) do %>
+                <div class="card-category"
+                    style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                    url(
+                      <% if list.photo.attached? %>
+                        <%= cl_image_path list.photo.key %>
+                      <% end %>
+                      )">
+                  <%= list.name %>
+                </div>
+              <% end %>
+        <% end %>
+      </div>
+    </div>
 
-  <div>
-    <h1>add a new list</h1>
-
-    <%= simple_form_for(@list) do |f| %>
-      <%= f.input :name %>
-      <%= f.input :photo, as: :file %>
-      <%= f.submit class: "btn btn-primary" %>
-    <% end %>
+    <div class="col-md-4">
+      <div class="bg-white border p-3 mb-3 sticky-top">
+        <p class="text-center form-title">Add New List</p>
+        
+        <%= simple_form_for(@list) do |f| %>
+          <%= f.input :name, placeholder: 'comedy', error: 'List name is mandatory, please specify one' %>
+          <%= f.input :photo, as: :file %>
+          <%= f.submit class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

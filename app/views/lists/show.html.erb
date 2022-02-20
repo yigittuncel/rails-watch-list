@@ -18,41 +18,52 @@
 </div>
 
 <div class="container my-5">
-  <h3>add a new bookmark</h3>
 
-  <%= simple_form_for [ @list, @bookmark ] do |f| %>
-    <%= f.input :comment %>
-    <%= f.association :movie, collection: Movie.all, class:"form-control",
-                      input_html: { data: { controller: 'select2' }, class: "form-control"} %>
-    <%= f.submit class: "btn btn-primary" %>
-  <% end %>
 </div>
 
 <div class="container mt-5">
   <div class="row">
-    <% @list.bookmarks.each do |bookmark| %>
-      <div class="col-lg-4">
-        <div class="card">
-          <img class="card-img-top" src="<%= bookmark.movie.poster_url %>" style="height: 200px; object-fit: cover;" alt="Card image cap">
-          <div class="card-body">
-            <div class="d-flex align-items-center">
-              <h5 class="card-title me-3"><%= bookmark.movie.title %></h5>
-              <h4 class="card-title me-1 text-secondary"><%= bookmark.movie.rating %></h4>
-              <i class="fa-regular fa-star mb-2 text-warning"></i>
-            </div>
-            <p class="card-text text-secondary my-2"><%= bookmark.movie.overview %></p>
-            <div class="d-flex">
-            <i class="fa-solid fa-quote-left me-3 mt-1"></i>
-              <p class="card-text flex-grow-1"><%= bookmark.comment %></p>
-              <%= link_to "delete", bookmark_path(bookmark),
-                                    class: "text-danger",
-                                    method: :delete,
-                                    data: { confirm: "Are you sure?" }
-              %>
+    <div class="col-md-8">
+      <div class="row">
+        <% @list.bookmarks.each do |bookmark| %>
+          <div class="col-lg-6">
+            <div class="card">
+              <img class="card-img-top" src="<%= bookmark.movie.poster_url %>" style="height: 200px; object-fit: cover;" alt="Card image cap">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title me-3"><%= bookmark.movie.title %></h5>
+                  <h4 class="card-title me-1 text-secondary"><%= bookmark.movie.rating %></h4>
+                  <i class="fa-regular fa-star mb-2 text-warning"></i>
+                </div>
+                <p class="card-text text-secondary my-2"><%= bookmark.movie.overview %></p>
+                <div class="d-flex">
+                <i class="fa-solid fa-quote-left me-3 mt-1"></i>
+                  <p class="card-text flex-grow-1"><%= bookmark.comment %></p>
+                  <%= link_to "delete", bookmark_path(bookmark),
+                                        class: "text-danger",
+                                        method: :delete,
+                                        data: { confirm: "Are you sure?" }
+                  %>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       </div>
-    <% end %>
+    </div>
+
+    <div class="col-md-4">
+      <div class="bg-white border p-3 mb-3 sticky-top">
+        <p class="text-center form-title">Add New Bookmark</p>
+
+
+        <%= simple_form_for [ @list, @bookmark ] do |f| %>
+          <%= f.input :comment %>
+          <%= f.association :movie,
+                            input_html: { data: { controller: 'select2', class: "form-select" } } %>
+          <%= f.submit class: "btn btn-primary" %>
+        <% end %>
+       </div>
+    </div>
   </div>
 </div>
