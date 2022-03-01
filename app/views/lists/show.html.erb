@@ -43,7 +43,7 @@
                       <div class="d-flex">
                       <i class="fa-solid fa-quote-left me-3 mt-1"></i>
                         <p class="card-text flex-grow-1"><%= bookmark.comment %></p>
-                        <%= link_to "delete", bookmark_path(@list),
+                        <%= link_to "delete", bookmark_path(bookmark),
                                               class: "text-danger",
                                               method: :delete,
                                               data: { confirm: "Are you sure?" }
